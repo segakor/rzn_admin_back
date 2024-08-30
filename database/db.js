@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 
 const DB_NAME = "rzntourism";
-const DB_USER = "root";
+const DB_USER = "postgres";
 const DB_PASSWORD = "root";
 const DB_HOST = "localhost";
 const DB_PORT = 5432;
