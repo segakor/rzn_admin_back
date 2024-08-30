@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "name": "rznrourism_back",
+      "script": "index.js",
+      "args": "start",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
