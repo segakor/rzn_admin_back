@@ -1,0 +1,13 @@
+const { Sequelize } = require("sequelize");
+
+const DB_NAME = "rzntourism";
+const DB_USER = "sega";
+const DB_PASSWORD = "segabg777";
+const DB_HOST = "localhost";
+const DB_PORT = 5432;
+
+module.exports = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  dialect: "postgres",
+  host: DB_HOST,
+  port: DB_PORT,
+});
