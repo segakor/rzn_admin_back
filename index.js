@@ -17,6 +17,13 @@ app.use(express.json());
 app.use("/api", authRouter);
 app.use("/api", newsArtRouter);
 
-app.listen(PORT, () =>
-  console.log("server start on ->", `http://localhost:${PORT}`)
+const options = {
+  key: fs.readFileSync(`/etc/letsencrypt/live/ryazantourism.ru/privkey.pem`),
+  cert: fs.readFileSync(`/etc/letsencrypt/live/ryazantourism.ru/fullchain.pem`),
+};
+
+const server = https.createServer(options, app);
+
+server.listen(PORT, () =>
+  console.log("server start on ", `http://localhost:${PORT}`)
 );
