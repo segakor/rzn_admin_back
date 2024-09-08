@@ -11,6 +11,8 @@ const PORT = 5001;
 
 const app = express();
 
+app.use(cors({ origin: ["https://test.ryazantourism.ru"] }));
+
 app.use(cors());
 app.use(express.json());
 
