@@ -11,7 +11,11 @@ const PORT = 5001;
 
 const app = express();
 
-app.use(cors({ origin: ["https://test.ryazantourism.ru"] }));
+app.use(
+  cors({
+    origin: ["https://test.ryazantourism.ru", 'https://ryazantourism.ru"'],
+  })
+);
 
 app.use(cors());
 app.use(express.json());
@@ -27,5 +31,5 @@ const options = {
 const server = https.createServer(options, app);
 
 server.listen(PORT, () =>
-  console.log("server start on ", `https://test.ryazantourism.ru:${PORT}`)
+  console.log("server start on ", `http://localhost:${PORT}`)
 );
