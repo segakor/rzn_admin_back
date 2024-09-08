@@ -17,13 +17,14 @@ app.use(express.json());
 
 
 app.use(subdomain('test', newsArtRouter));
+app.use(subdomain('test', authRouter));
 
 /* app.use("/api", authRouter);
 app.use("/api", newsArtRouter); */
 
 const options = {
-  key: fs.readFileSync(`/etc/letsencrypt/live/ryazantourism.ru/privkey.pem`),
-  cert: fs.readFileSync(`/etc/letsencrypt/live/ryazantourism.ru/fullchain.pem`),
+  key: fs.readFileSync(`/etc/letsencrypt/live/test.ryazantourism.ru/privkey.pem`),
+  cert: fs.readFileSync(`/etc/letsencrypt/live/test.ryazantourism.ru/fullchain.pem`),
 };
 
 const server = https.createServer(options, app);
