@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 const https = require("https");
 const fs = require(`fs`);
+var subdomain = require('express-subdomain');
 
 const authRouter = require("./routes/auth.routes");
 const newsArtRouter = require("./routes/newsArt.routes");
@@ -11,17 +12,14 @@ const PORT = 5001;
 
 const app = express();
 
-app.use(
-  cors({
-    origin: ["https://test.ryazantourism.ru", 'https://ryazantourism.ru"'],
-  })
-);
-
 app.use(cors());
 app.use(express.json());
 
-app.use("/api", authRouter);
-app.use("/api", newsArtRouter);
+
+app.use(subdomain('test', newsArtRouter));
+
+/* app.use("/api", authRouter);
+app.use("/api", newsArtRouter); */
 
 const options = {
   key: fs.readFileSync(`/etc/letsencrypt/live/ryazantourism.ru/privkey.pem`),
