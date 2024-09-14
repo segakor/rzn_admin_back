@@ -21,9 +21,19 @@ const NewsArt = sequelize.define(
   { underscored: true, freezeTableName: true }
 );
 
+const StorageImage = sequelize.define(
+  "storage_image",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    imagePath: { type: DataTypes.STRING },
+  },
+  { underscored: true, freezeTableName: true }
+);
+
 //freezeTableName убирает s в название таблицы при инсерте
 
 module.exports = {
   User,
-  NewsArt
+  NewsArt,
+  StorageImage,
 };

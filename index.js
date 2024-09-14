@@ -22,13 +22,13 @@ app.use("/api-v2", uploadRouter);
 app.use(express.static(__dirname));
 
 
-const options = {
+/* const options = {
   key: fs.readFileSync(`/etc/letsencrypt/live/ryazantourism.ru/privkey.pem`),
   cert: fs.readFileSync(`/etc/letsencrypt/live/ryazantourism.ru/fullchain.pem`),
 };
 
-const server = https.createServer(options, app);
+const server = https.createServer(options, app); */
 
-server.listen(PORT, () =>
+app.listen(PORT, () =>
   console.log("server start on ", `http://localhost:${PORT}`)
 );

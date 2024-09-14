@@ -17,8 +17,6 @@ class UploadController {
     try {
       const { file } = req;
 
-      console.log(file)
-
       let filedata = file;
  
       if(!filedata)

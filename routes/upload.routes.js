@@ -5,13 +5,19 @@ const authMiddleware = require("../middleware/auth.middleware");
 const uploadController = require("../controller/upload.controller");
 
 const multer = require("multer");
+const fs = require("fs");
 
 const storageConfig = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads");
+    const destination = `storage/image/${req.query.destination}`;
+
+    fs.mkdirSync(destination, { recursive: true });
+
+    cb(null, destination);
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    const uniqueSuffix = new Date().toLocaleDateString() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + "-" + file.originalname);
   },
 });
 
