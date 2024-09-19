@@ -25,7 +25,7 @@ app.use("/api-v2", newsArtRouter);
 app.use("/api-v2", newsRegionRouter);
 app.use("/api-v2", uploadRouter);
 
-app.use(express.static(__dirname));
+app.use("/api-v2", express.static(__dirname));
 
 if (envMode === "production") {
   const options = {
