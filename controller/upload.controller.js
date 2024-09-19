@@ -1,6 +1,8 @@
+const { StorageImage } = require("../database/models");
 class UploadController {
   async get(_req, res) {
-   /*  try {
+    console.log(res.body);
+    /*  try {
       const newsArt = await NewsArt.findAndCountAll({
         order: [["createdAt", "DESC"]],
       });
@@ -13,17 +15,25 @@ class UploadController {
   }
 
   async create(req, res) {
-
     try {
       const { file } = req;
 
       let filedata = file;
- 
-      if(!filedata)
-        res.status(500).json({ message: "error upload" });
 
-      return res.json({ message: "success upload" });
+      if (!filedata) return res.status(500).json({ message: "error upload" });
+
+      const image = await StorageImage.create({
+        imagePath: file.path,
+      });
+
+      if (!image)
+        return res.status(404).json({ message: "create image error" });
+
+      const { id, imagePath } = image;
+
+      return res.json({ id, imagePath });
     } catch (err) {
+      console.log(err);
       res.status(500).json({
         message: err,
       });

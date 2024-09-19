@@ -1,3 +1,5 @@
+const { SECRET } = require("../env_var");
+
 module.exports = {
-  secret: "SECRET_KEY_RANDOM",
+  secret: SECRET,
 };

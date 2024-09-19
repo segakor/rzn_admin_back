@@ -16,7 +16,10 @@ const storageConfig = multer.diskStorage({
     cb(null, destination);
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = new Date().toLocaleDateString() + "-" + Math.round(Math.random() * 1e9);
+    const uniqueSuffix =
+      new Date().toISOString().slice(0, 10) +
+      "_" +
+      Math.round(Math.random() * 1e9);
     cb(null, uniqueSuffix + "-" + file.originalname);
   },
 });

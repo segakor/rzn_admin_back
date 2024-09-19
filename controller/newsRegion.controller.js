@@ -1,14 +1,14 @@
-const { NewsArt, StorageImage } = require("../database/models");
+const { NewsRegion, StorageImage } = require("../database/models");
 
-class NewsArtController {
+class NewsRegionController {
   async get(_req, res) {
     try {
-      const newsArt = await NewsArt.findAndCountAll({
+      const newsRegion = await NewsRegion.findAndCountAll({
         include: { model: StorageImage, required: true },
         order: [["id", "ASC"]],
       });
 
-      return res.json(newsArt);
+      return res.json(newsRegion);
     } catch (err) {
       res.status(500).json({
         message: err,
@@ -26,7 +26,7 @@ class NewsArtController {
           .json({ message: "Не переданы все обязательные параметры" });
       }
 
-      const news = await NewsArt.create({
+      const news = await NewsRegion.create({
         title,
         bodyText,
         imageId,
@@ -45,16 +45,17 @@ class NewsArtController {
   async delete(req, res) {
     try {
       const id = req.params.id;
-      const newsArt = await NewsArt.findOne({ where: { id } });
-      if (newsArt) {
-        await NewsArt.destroy({
+      const newsRegion = await NewsRegion.findOne({ where: { id } });
+
+      if (newsRegion) {
+        await NewsRegion.destroy({
           where: {
             id,
           },
         });
         return res.json({ message: "success delete" });
       }
-      return res.status(404).json({ message: "newsArt not fount" });
+      return res.status(404).json({ message: "newsRegion not fount" });
     } catch (err) {
       res.status(500).json({
         message: err,
@@ -72,10 +73,10 @@ class NewsArtController {
           .json({ message: "Не переданы все обязательные параметры" });
       }
 
-      const newsArt = await NewsArt.findOne({ where: { id } });
+      const newsRegion = await NewsRegion.findOne({ where: { id } });
 
-      if (newsArt) {
-        await NewsArt.update(
+      if (newsRegion) {
+        await NewsRegion.update(
           { title, bodyText, imageId },
           {
             where: {
@@ -86,7 +87,7 @@ class NewsArtController {
         return res.json({ message: "success update" });
       }
 
-      return res.status(404).json({ message: "newsArt not fount" });
+      return res.status(404).json({ message: "newsRegion not fount" });
     } catch (err) {
       res.status(500).json({
         message: err,
@@ -95,4 +96,4 @@ class NewsArtController {
   }
 }
 
-module.exports = new NewsArtController();
+module.exports = new NewsRegionController();

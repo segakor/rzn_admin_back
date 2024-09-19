@@ -16,7 +16,18 @@ const NewsArt = sequelize.define(
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING },
     bodyText: { type: DataTypes.TEXT },
-    imagePath: { type: DataTypes.STRING },
+    imageId: { type: DataTypes.INTEGER },
+  },
+  { underscored: true, freezeTableName: true }
+);
+
+const NewsRegion = sequelize.define(
+  "news_region",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    bodyText: { type: DataTypes.TEXT },
+    imageId: { type: DataTypes.INTEGER },
   },
   { underscored: true, freezeTableName: true }
 );
@@ -30,10 +41,21 @@ const StorageImage = sequelize.define(
   { underscored: true, freezeTableName: true }
 );
 
+NewsArt.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
+NewsRegion.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
 //freezeTableName убирает s в название таблицы при инсерте
 
 module.exports = {
   User,
   NewsArt,
   StorageImage,
+  NewsRegion,
 };
