@@ -5,7 +5,7 @@ class NewsRegionController {
     try {
       const newsRegion = await NewsRegion.findAndCountAll({
         include: { model: StorageImage },
-        order: [["date", "ASC"]],
+        order: [["date", "DESC"]],
       });
 
       return res.json(newsRegion);
