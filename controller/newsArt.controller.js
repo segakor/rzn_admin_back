@@ -4,8 +4,8 @@ class NewsArtController {
   async get(_req, res) {
     try {
       const newsArt = await NewsArt.findAndCountAll({
-        include: { model: StorageImage, required: true },
-        order: [["id", "ASC"]],
+        include: { model: StorageImage },
+        order: [["date", "DESC"]],
       });
 
       return res.json(newsArt);
@@ -18,9 +18,9 @@ class NewsArtController {
 
   async create(req, res) {
     try {
-      const { title, bodyText, imageId } = req.body;
+      const { title, bodyText, imageId, date } = req.body;
 
-      if (!title || !bodyText || !imageId) {
+      if (!title || !bodyText || !imageId || !date) {
         return res
           .status(404)
           .json({ message: "Не переданы все обязательные параметры" });
@@ -30,6 +30,7 @@ class NewsArtController {
         title,
         bodyText,
         imageId,
+        date,
       });
 
       if (!news) return res.status(404).json({ message: "create news error" });
@@ -46,6 +47,7 @@ class NewsArtController {
     try {
       const id = req.params.id;
       const newsArt = await NewsArt.findOne({ where: { id } });
+
       if (newsArt) {
         await NewsArt.destroy({
           where: {
@@ -64,9 +66,9 @@ class NewsArtController {
 
   async update(req, res) {
     try {
-      const { title, bodyText, imageId, id } = req.body;
+      const { title, bodyText, imageId, date, id } = req.body;
 
-      if (!title || !bodyText || !imageId || !id) {
+      if (!title || !bodyText || !imageId || !date || !id) {
         return res
           .status(404)
           .json({ message: "Не переданы все обязательные параметры" });
@@ -76,7 +78,7 @@ class NewsArtController {
 
       if (newsArt) {
         await NewsArt.update(
-          { title, bodyText, imageId },
+          { title, bodyText, imageId, date },
           {
             where: {
               id,

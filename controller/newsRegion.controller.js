@@ -4,8 +4,8 @@ class NewsRegionController {
   async get(_req, res) {
     try {
       const newsRegion = await NewsRegion.findAndCountAll({
-        include: { model: StorageImage, required: true },
-        order: [["id", "ASC"]],
+        include: { model: StorageImage },
+        order: [["date", "ASC"]],
       });
 
       return res.json(newsRegion);
@@ -18,9 +18,9 @@ class NewsRegionController {
 
   async create(req, res) {
     try {
-      const { title, bodyText, imageId } = req.body;
+      const { title, bodyText, imageId, date } = req.body;
 
-      if (!title || !bodyText || !imageId) {
+      if (!title || !bodyText || !imageId || !date) {
         return res
           .status(404)
           .json({ message: "Не переданы все обязательные параметры" });
@@ -30,6 +30,7 @@ class NewsRegionController {
         title,
         bodyText,
         imageId,
+        date,
       });
 
       if (!news) return res.status(404).json({ message: "create news error" });
@@ -65,9 +66,9 @@ class NewsRegionController {
 
   async update(req, res) {
     try {
-      const { title, bodyText, imageId, id } = req.body;
+      const { title, bodyText, imageId, date, id } = req.body;
 
-      if (!title || !bodyText || !imageId || !id) {
+      if (!title || !bodyText || !imageId || !date || !id) {
         return res
           .status(404)
           .json({ message: "Не переданы все обязательные параметры" });
@@ -77,7 +78,7 @@ class NewsRegionController {
 
       if (newsRegion) {
         await NewsRegion.update(
-          { title, bodyText, imageId },
+          { title, bodyText, imageId, date },
           {
             where: {
               id,

@@ -16,9 +16,10 @@ const NewsArt = sequelize.define(
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING },
     bodyText: { type: DataTypes.TEXT },
+    date: { type: DataTypes.STRING },
     imageId: { type: DataTypes.INTEGER },
   },
-  { underscored: true, freezeTableName: true }
+  { underscored: true, freezeTableName: true, timestamps: false }
 );
 
 const NewsRegion = sequelize.define(
@@ -27,9 +28,10 @@ const NewsRegion = sequelize.define(
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING },
     bodyText: { type: DataTypes.TEXT },
+    date: { type: DataTypes.STRING },
     imageId: { type: DataTypes.INTEGER },
   },
-  { underscored: true, freezeTableName: true }
+  { underscored: true, freezeTableName: true, timestamps: false }
 );
 
 const StorageImage = sequelize.define(
