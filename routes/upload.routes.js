@@ -45,6 +45,6 @@ router.post(
   uploadController.create
 );
 
-router.post("/getStorage", authMiddleware, uploadController.get);
+router.get("/getStorage", authMiddleware, uploadController.get);
 
 module.exports = router;
