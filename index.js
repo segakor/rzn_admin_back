@@ -17,7 +17,12 @@ const PORT = 5001;
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: true, //included origin as true
+  credentials: true, //included credentials as true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api-v2", authRouter);

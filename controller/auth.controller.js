@@ -70,6 +70,16 @@ class AuthController {
       });
     }
   }
+
+  async checkAuth(_req, res) {
+    try {
+      return res.json({});
+    } catch (error) {
+      res.status(500).json({
+        message: error,
+      });
+    }
+  }
 }
 
 module.exports = new AuthController();

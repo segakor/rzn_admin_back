@@ -1,17 +1,16 @@
 const { StorageImage } = require("../database/models");
 class UploadController {
   async get(_req, res) {
-    console.log(res.body);
-    /*  try {
-      const newsArt = await NewsArt.findAndCountAll({
+    try {
+      const result = await StorageImage.findAndCountAll({
         order: [["createdAt", "DESC"]],
       });
-      return res.json(newsArt);
+      return res.json(result);
     } catch (err) {
       res.status(500).json({
         message: err,
       });
-    } */
+    }
   }
 
   async create(req, res) {
