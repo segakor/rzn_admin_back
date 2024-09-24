@@ -19,7 +19,10 @@ class NewsArtController {
   async getById(req, res) {
     try {
       const id = req.params.id;
-      const newsArt = await NewsArt.findOne({ where: { id } });
+      const newsArt = await NewsArt.findOne({
+        include: { model: StorageImage },
+        where: { id },
+      });
 
       return res.json(newsArt);
     } catch (err) {

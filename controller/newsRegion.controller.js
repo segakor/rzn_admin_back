@@ -19,7 +19,10 @@ class NewsRegionController {
   async getById(req, res) {
     try {
       const id = req.params.id;
-      const newsRegion = await NewsRegion.findOne({ where: { id } });
+      const newsRegion = await NewsRegion.findOne({
+        include: { model: StorageImage },
+        where: { id },
+      });
 
       return res.json(newsRegion);
     } catch (err) {
