@@ -16,6 +16,19 @@ class NewsRegionController {
     }
   }
 
+  async getById(req, res) {
+    try {
+      const id = req.params.id;
+      const newsRegion = await NewsRegion.findOne({ where: { id } });
+
+      return res.json(newsRegion);
+    } catch (err) {
+      res.status(500).json({
+        message: err,
+      });
+    }
+  }
+
   async create(req, res) {
     try {
       const { title, bodyText, imageId, date } = req.body;

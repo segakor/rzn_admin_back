@@ -16,6 +16,19 @@ class NewsArtController {
     }
   }
 
+  async getById(req, res) {
+    try {
+      const id = req.params.id;
+      const newsArt = await NewsArt.findOne({ where: { id } });
+
+      return res.json(newsArt);
+    } catch (err) {
+      res.status(500).json({
+        message: err,
+      });
+    }
+  }
+
   async create(req, res) {
     try {
       const { title, bodyText, imageId, date } = req.body;
