@@ -72,7 +72,7 @@ class NewsRegionController {
         });
         return res.json({ message: "success delete" });
       }
-      return res.status(404).json({ message: "newsRegion not fount" });
+      return res.status(404).json({ message: "newsRegion not found" });
     } catch (err) {
       res.status(500).json({
         message: err,
@@ -104,7 +104,7 @@ class NewsRegionController {
         return res.json({ message: "success update" });
       }
 
-      return res.status(404).json({ message: "newsRegion not fount" });
+      return res.status(404).json({ message: "newsRegion not found" });
     } catch (err) {
       res.status(500).json({
         message: err,

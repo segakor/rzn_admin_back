@@ -43,6 +43,16 @@ const StorageImage = sequelize.define(
   { underscored: true, freezeTableName: true }
 );
 
+const LongRead = sequelize.define(
+  "long_read",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    bodyText: { type: DataTypes.TEXT },
+  },
+  { underscored: true, freezeTableName: true }
+);
+
 NewsArt.hasOne(StorageImage, {
   foreignKey: "id",
   sourceKey: "imageId",
@@ -60,4 +70,5 @@ module.exports = {
   NewsArt,
   StorageImage,
   NewsRegion,
+  LongRead,
 };

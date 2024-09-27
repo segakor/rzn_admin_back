@@ -1,4 +1,5 @@
 const { StorageImage } = require("../database/models");
+const { envMode, PROD_URL } = require("../env_var");
 class UploadController {
   async get(_req, res) {
     try {
@@ -30,7 +31,10 @@ class UploadController {
 
       const { id, imagePath } = image;
 
-      return res.json({ id, imagePath });
+      return res.json({
+        id,
+        imagePath,
+      });
     } catch (err) {
       console.log(err);
       res.status(500).json({
@@ -39,24 +43,39 @@ class UploadController {
     }
   }
 
-  async delete(req, res) {
-    /* try {
-      const id = req.params.id;
-      const newsArt = await NewsArt.findOne({ where: { id } });
-      if (newsArt) {
-        await NewsArt.destroy({
-          where: {
-            id,
-          },
-        });
-        return res.json({ message: "success delete" });
-      }
-      return res.status(404).json({ message: "newsArt not fount" });
-    } catch (err) {
-      res.status(500).json({
-        message: err,
+  async createForLongRead(req, res) {
+    try {
+      const { file } = req;
+
+      let filedata = file;
+
+      if (!filedata) return res.status(500).json({ message: "error upload" });
+
+      const image = await StorageImage.create({
+        imagePath: file.path,
       });
-    } */
+
+      const baseUrl =
+        envMode === "production"
+          ? `${PROD_URL}/api-v2`
+          : "http://localhost:5001/api-v2";
+
+      if (!image)
+        return res.status(404).json({ message: "create image error" });
+
+      return res.json({
+        uploaded: 1,
+        url: `${baseUrl}/${file.path}`,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        uploaded: 0,
+        url: `${baseUrl}/${file.path}`,
+        error: "Ошибка",
+        message: "Ошибка",
+      });
+    }
   }
 }
 

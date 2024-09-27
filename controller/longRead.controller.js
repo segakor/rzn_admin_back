@@ -1,14 +1,13 @@
-const { NewsArt, StorageImage } = require("../database/models");
+const { LongRead } = require("../database/models");
 
-class NewsArtController {
+class LongReadController {
   async get(_req, res) {
     try {
-      const newsArt = await NewsArt.findAndCountAll({
-        include: { model: StorageImage },
+      const longRead = await LongRead.findAndCountAll({
         order: [["date", "DESC"]],
       });
 
-      return res.json(newsArt);
+      return res.json(longRead);
     } catch (err) {
       res.status(500).json({
         message: err,
@@ -19,12 +18,11 @@ class NewsArtController {
   async getById(req, res) {
     try {
       const id = req.params.id;
-      const newsArt = await NewsArt.findOne({
-        include: { model: StorageImage },
-        where: { id },
+      const longRead = await LongRead.findOne({
+        where: { title: id },
       });
 
-      return res.json(newsArt);
+      return res.json(longRead);
     } catch (err) {
       res.status(500).json({
         message: err,
@@ -34,22 +32,21 @@ class NewsArtController {
 
   async create(req, res) {
     try {
-      const { title, bodyText, imageId, date } = req.body;
+      const { title, bodyText } = req.body;
 
-      if (!title || !bodyText || !imageId || !date) {
+      if (!title || !bodyText) {
         return res
           .status(404)
           .json({ message: "Не переданы все обязательные параметры" });
       }
 
-      const news = await NewsArt.create({
+      const longRead = await LongRead.create({
         title,
         bodyText,
-        imageId,
-        date,
       });
 
-      if (!news) return res.status(404).json({ message: "create news error" });
+      if (!longRead)
+        return res.status(404).json({ message: "create longRead error" });
 
       return res.json({ message: "success" });
     } catch (err) {
@@ -62,17 +59,17 @@ class NewsArtController {
   async delete(req, res) {
     try {
       const id = req.params.id;
-      const newsArt = await NewsArt.findOne({ where: { id } });
+      const longRead = await LongRead.findOne({ where: { id } });
 
-      if (newsArt) {
-        await NewsArt.destroy({
+      if (longRead) {
+        await LongRead.destroy({
           where: {
             id,
           },
         });
         return res.json({ message: "success delete" });
       }
-      return res.status(404).json({ message: "newsArt not found" });
+      return res.status(404).json({ message: "longRead not found" });
     } catch (err) {
       res.status(500).json({
         message: err,
@@ -82,29 +79,29 @@ class NewsArtController {
 
   async update(req, res) {
     try {
-      const { title, bodyText, imageId, date, id } = req.body;
+      const { title, bodyText } = req.body;
 
-      if (!title || !bodyText || !imageId || !date || !id) {
+      if (!title || !bodyText) {
         return res
           .status(404)
           .json({ message: "Не переданы все обязательные параметры" });
       }
 
-      const newsArt = await NewsArt.findOne({ where: { id } });
+      const longRead = await LongRead.findOne({ where: { title } });
 
-      if (newsArt) {
-        await NewsArt.update(
-          { title, bodyText, imageId, date },
+      if (longRead) {
+        await longRead.update(
+          { bodyText },
           {
             where: {
-              id,
+              title,
             },
           }
         );
         return res.json({ message: "success update" });
       }
 
-      return res.status(404).json({ message: "newsArt not found" });
+      return res.status(404).json({ message: "longRead not found" });
     } catch (err) {
       res.status(500).json({
         message: err,
@@ -113,4 +110,4 @@ class NewsArtController {
   }
 }
 
-module.exports = new NewsArtController();
+module.exports = new LongReadController();

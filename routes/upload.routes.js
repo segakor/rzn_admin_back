@@ -16,11 +16,12 @@ const storageConfig = multer.diskStorage({
     cb(null, destination);
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix =
+    /* const uniqueSuffix =
       new Date().toISOString().slice(0, 10) +
       "_" +
       Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + "-" + file.originalname);
+    cb(null, uniqueSuffix + "-" + file.originalname); */
+    cb(null, file.originalname);
   },
 });
 
@@ -43,6 +44,13 @@ router.post(
   authMiddleware,
   upload.single("file"),
   uploadController.create
+);
+
+router.post(
+  "/upload/longread",
+  authMiddleware,
+  upload.single("upload"),
+  uploadController.createForLongRead
 );
 
 router.get("/getStorage", authMiddleware, uploadController.get);

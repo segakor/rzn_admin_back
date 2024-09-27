@@ -8,6 +8,7 @@ const authRouter = require("./routes/auth.routes");
 const newsArtRouter = require("./routes/newsArt.routes");
 const newsRegionRouter = require("./routes/newsRegion.routes");
 const uploadRouter = require("./routes/upload.routes");
+const longReadRouter = require("./routes/longRead.routes");
 
 const { envMode, SSL_D } = require("./env_var");
 
@@ -29,6 +30,7 @@ app.use("/api-v2", authRouter);
 app.use("/api-v2", newsArtRouter);
 app.use("/api-v2", newsRegionRouter);
 app.use("/api-v2", uploadRouter);
+app.use("/api-v2", longReadRouter);
 
 app.use("/api-v2", express.static(__dirname));
 
