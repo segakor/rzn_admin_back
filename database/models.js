@@ -34,6 +34,28 @@ const NewsRegion = sequelize.define(
   { underscored: true, freezeTableName: true, timestamps: false }
 );
 
+const ChtoPosmotret = sequelize.define(
+  "chto_posmotret",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    subTitle: { type: DataTypes.STRING },
+    address: { type: DataTypes.STRING },
+    category: { type: DataTypes.STRING },
+    contacts: { type: DataTypes.TEXT },
+    tags: {
+      type: DataTypes.JSON,
+      get: function () {
+        return JSON.parse(this.getDataValue("tags"));
+      },
+    },
+    imageId: { type: DataTypes.INTEGER },
+    template: { type: DataTypes.TEXT },
+  },
+
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
+
 const StorageImage = sequelize.define(
   "storage_image",
   {
@@ -63,6 +85,11 @@ NewsRegion.hasOne(StorageImage, {
   sourceKey: "imageId",
 });
 
+ChtoPosmotret.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
 //freezeTableName убирает s в название таблицы при инсерте
 
 module.exports = {
@@ -71,4 +98,5 @@ module.exports = {
   StorageImage,
   NewsRegion,
   LongRead,
+  ChtoPosmotret,
 };

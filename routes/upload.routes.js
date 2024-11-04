@@ -8,20 +8,16 @@ const multer = require("multer");
 const fs = require("fs");
 
 const storageConfig = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: (req, _file, cb) => {
     const destination = `storage/image/${req.query.destination}`;
 
     fs.mkdirSync(destination, { recursive: true });
 
     cb(null, destination);
   },
-  filename: (req, file, cb) => {
-    /* const uniqueSuffix =
-      new Date().toISOString().slice(0, 10) +
-      "_" +
-      Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + "-" + file.originalname); */
-    cb(null, file.originalname);
+  filename: (_req, file, cb) => {
+    const fileName = Buffer.from(file.originalname, "latin1").toString("utf8");
+    cb(null, fileName);
   },
 });
 
