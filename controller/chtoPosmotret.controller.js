@@ -157,6 +157,7 @@ class ChtoPosmotretController {
 
       return res.status(404).json({ message: "chtoPosmotret not found" });
     } catch (err) {
+      console.log("debug", err);
       res.status(500).json({
         message: err,
       });
