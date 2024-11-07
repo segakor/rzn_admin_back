@@ -5,6 +5,7 @@ class ChtoPosmotretController {
     try {
       const chtoPosmotret = await ChtoPosmotret.findAndCountAll({
         include: { model: StorageImage },
+        order: [["id", "ASC"]],
       });
 
       return res.json(chtoPosmotret);
@@ -81,27 +82,6 @@ class ChtoPosmotretController {
     }
   }
 
-  async delete(req, res) {
-    try {
-      const id = req.params.id;
-      const chtoPosmotret = await ChtoPosmotret.findOne({ where: { id } });
-
-      if (chtoPosmotret) {
-        await ChtoPosmotret.destroy({
-          where: {
-            id,
-          },
-        });
-        return res.json({ message: "success delete" });
-      }
-      return res.status(404).json({ message: "chtoPosmotret not found" });
-    } catch (err) {
-      res.status(500).json({
-        message: err.message,
-      });
-    }
-  }
-
   async update(req, res) {
     try {
       const {
@@ -157,9 +137,29 @@ class ChtoPosmotretController {
 
       return res.status(404).json({ message: "chtoPosmotret not found" });
     } catch (err) {
-      console.log("debug", err);
       res.status(500).json({
         message: err,
+      });
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const id = req.params.id;
+      const chtoPosmotret = await ChtoPosmotret.findOne({ where: { id } });
+
+      if (chtoPosmotret) {
+        await ChtoPosmotret.destroy({
+          where: {
+            id,
+          },
+        });
+        return res.json({ message: "success delete" });
+      }
+      return res.status(404).json({ message: "chtoPosmotret not found" });
+    } catch (err) {
+      res.status(500).json({
+        message: err.message,
       });
     }
   }

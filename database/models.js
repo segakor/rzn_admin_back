@@ -44,9 +44,12 @@ const ChtoPosmotret = sequelize.define(
     category: { type: DataTypes.STRING },
     contacts: { type: DataTypes.TEXT },
     tags: {
-      type: DataTypes.JSON,
+      type: DataTypes.TEXT,
       get: function () {
         return JSON.parse(this.getDataValue("tags"));
+      },
+      set: function (value) {
+        this.setDataValue("tags", JSON.stringify(value));
       },
     },
     imageId: { type: DataTypes.INTEGER },
