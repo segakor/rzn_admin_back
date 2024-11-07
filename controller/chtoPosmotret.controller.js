@@ -49,10 +49,10 @@ class ChtoPosmotretController {
         !subTitle ||
         !address ||
         !category ||
-        !tags ||
+        /* !tags || */
         !imageId ||
-        !template ||
-        !contacts
+        !template /* ||
+        !contacts */
       ) {
         return res
           .status(404)
@@ -121,10 +121,10 @@ class ChtoPosmotretController {
         !subTitle ||
         !address ||
         !category ||
-        !tags ||
+        /* !tags || */
         !imageId ||
-        !template ||
-        !contacts ||
+        !template /* ||
+        !contacts */ ||
         !id
       ) {
         return res
