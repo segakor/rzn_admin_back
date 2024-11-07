@@ -49,10 +49,10 @@ class ChtoPosmotretController {
         !subTitle ||
         !address ||
         !category ||
-        /* !tags || */
+        !tags ||
         !imageId ||
-        !template /* ||
-        !contacts */
+        !template ||
+        !contacts
       ) {
         return res
           .status(404)
@@ -75,6 +75,7 @@ class ChtoPosmotretController {
 
       return res.json({ message: "success" });
     } catch (err) {
+      console.log(err);
       res.status(500).json({
         message: err.message,
       });
