@@ -10,6 +10,7 @@ const newsRegionRouter = require("./routes/newsRegion.routes");
 const uploadRouter = require("./routes/upload.routes");
 const longReadRouter = require("./routes/longRead.routes");
 const chtoPosmotretRouter = require("./routes/chtoPosmotret.routes");
+const samostoyatelnyeMarshrutyRouter = require("./routes/samostoyatelnyeMarshruty.route");
 
 const { envMode, SSL_D } = require("./env_var");
 
@@ -33,6 +34,7 @@ app.use("/api-v2", newsRegionRouter);
 app.use("/api-v2", uploadRouter);
 app.use("/api-v2", longReadRouter);
 app.use("/api-v2", chtoPosmotretRouter);
+app.use("/api-v2", samostoyatelnyeMarshrutyRouter);
 
 app.use("/api-v2", express.static(__dirname));
 

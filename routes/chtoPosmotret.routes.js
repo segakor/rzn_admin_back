@@ -6,8 +6,12 @@ const chtoPosmotretController = require("../controller/chtoPosmotret.controller"
 
 router.get("/chtoposmotret", chtoPosmotretController.get);
 router.get("/chtoposmotret/:id", chtoPosmotretController.getById);
-router.post("/chtoposmotret", chtoPosmotretController.create);
-router.put("/chtoposmotret", chtoPosmotretController.update);
-router.delete("/chtoposmotret/:id", chtoPosmotretController.delete);
+router.post("/chtoposmotret", authMiddleware, chtoPosmotretController.create);
+router.put("/chtoposmotret", authMiddleware, chtoPosmotretController.update);
+router.delete(
+  "/chtoposmotret/:id",
+  authMiddleware,
+  chtoPosmotretController.delete
+);
 
 module.exports = router;

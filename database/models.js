@@ -58,6 +58,46 @@ const ChtoPosmotret = sequelize.define(
 
   { underscored: true, freezeTableName: true, timestamps: false }
 );
+const OrganizovannyeMarshruty = sequelize.define(
+  "organizovannye_marshruty",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    subTitle: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING },
+    dates: { type: DataTypes.STRING },
+    includePrice: { type: DataTypes.STRING },
+    price: { type: DataTypes.STRING },
+    days: { type: DataTypes.STRING },
+    imageId: { type: DataTypes.INTEGER },
+    template: { type: DataTypes.TEXT },
+  },
+
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
+const SamostoyatelnyeMarshruty = sequelize.define(
+  "samostoyatelnye_marshruty",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    subTitle: { type: DataTypes.STRING },
+    category: { type: DataTypes.STRING },
+    tags: {
+      type: DataTypes.TEXT,
+      get: function () {
+        return JSON.parse(this.getDataValue("tags"));
+      },
+      set: function (value) {
+        this.setDataValue("tags", JSON.stringify(value));
+      },
+    },
+    link_path: { type: DataTypes.STRING },
+    imageId: { type: DataTypes.INTEGER },
+    template: { type: DataTypes.TEXT },
+  },
+
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
 
 const StorageImage = sequelize.define(
   "storage_image",
@@ -93,6 +133,16 @@ ChtoPosmotret.hasOne(StorageImage, {
   sourceKey: "imageId",
 });
 
+SamostoyatelnyeMarshruty.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
+OrganizovannyeMarshruty.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
 //freezeTableName убирает s в название таблицы при инсерте
 
 module.exports = {
@@ -102,4 +152,6 @@ module.exports = {
   NewsRegion,
   LongRead,
   ChtoPosmotret,
+  SamostoyatelnyeMarshruty,
+  OrganizovannyeMarshruty,
 };
