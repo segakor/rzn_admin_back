@@ -99,6 +99,26 @@ const SamostoyatelnyeMarshruty = sequelize.define(
   { underscored: true, freezeTableName: true, timestamps: false }
 );
 
+const Answer = sequelize.define(
+  "answers",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    category: { type: DataTypes.STRING },
+    keywords: { type: DataTypes.STRING },
+    answers: {
+      type: DataTypes.TEXT,
+      get: function () {
+        return JSON.parse(this.getDataValue("answers"));
+      },
+      set: function (value) {
+        this.setDataValue("answers", JSON.stringify(value));
+      },
+    },
+  },
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
+
 const StorageImage = sequelize.define(
   "storage_image",
   {
@@ -154,4 +174,5 @@ module.exports = {
   ChtoPosmotret,
   SamostoyatelnyeMarshruty,
   OrganizovannyeMarshruty,
+  Answer,
 };

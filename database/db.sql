@@ -13,3 +13,5 @@ create TABLE chto_posmotret (id SERIAL PRIMARY KEY, title VARCHAR(400), sub_titl
 create TABLE samostoyatelnye_marshruty (id SERIAL PRIMARY KEY, title VARCHAR(400), sub_title VARCHAR(400), image_id SERIAL, category VARCHAR(100), tags VARCHAR(100), template TEXT, link_path VARCHAR(400) );
 
 create TABLE organizovannye_marshruty (id SERIAL PRIMARY KEY, title VARCHAR(400), sub_title VARCHAR(400), image_id SERIAL, email VARCHAR(100), dates VARCHAR(400), include_price VARCHAR(200), price VARCHAR(200), days VARCHAR(200), template TEXT );
+
+create TABLE answers (id SERIAL PRIMARY KEY, title VARCHAR(400) , category VARCHAR(100), keywords VARCHAR(400), answers TEXT );
