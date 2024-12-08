@@ -3,11 +3,11 @@ const { User } = require("../database/models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { secret } = require("../config/secret");
+const { SECRET } = require("../env_var");
 
 const generateAccessToken = (email) => {
   const payload = { email };
-  return jwt.sign(payload, secret, { expiresIn: "3h" });
+  return jwt.sign(payload, SECRET, { expiresIn: "3h" });
 };
 class AuthController {
   async registration(req, res) {
