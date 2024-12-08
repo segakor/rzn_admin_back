@@ -24,6 +24,9 @@ class NewsArtController {
         where: { id },
       });
 
+      if (!newsArt)
+        return res.status(404).json({ message: "not found newsArt" });
+
       return res.json(newsArt);
     } catch (err) {
       res.status(500).json({

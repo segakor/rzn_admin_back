@@ -24,6 +24,9 @@ class NewsRegionController {
         where: { id },
       });
 
+      if (!newsRegion)
+        return res.status(404).json({ message: "not found newsRegion" });
+
       return res.json(newsRegion);
     } catch (err) {
       res.status(500).json({

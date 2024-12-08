@@ -22,6 +22,9 @@ class AnswerController {
         where: { id },
       });
 
+      if (!answers)
+        return res.status(404).json({ message: "not found answers" });
+
       return res.json(answers);
     } catch (err) {
       res.status(500).json({

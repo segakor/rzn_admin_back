@@ -63,9 +63,16 @@ const OrganizovannyeMarshruty = sequelize.define(
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING },
-    subTitle: { type: DataTypes.STRING },
     email: { type: DataTypes.STRING },
-    dates: { type: DataTypes.STRING },
+    dates: {
+      type: DataTypes.TEXT,
+      get: function () {
+        return JSON.parse(this.getDataValue("dates"));
+      },
+      set: function (value) {
+        this.setDataValue("dates", JSON.stringify(value));
+      },
+    },
     includePrice: { type: DataTypes.STRING },
     price: { type: DataTypes.STRING },
     days: { type: DataTypes.STRING },
@@ -91,7 +98,7 @@ const SamostoyatelnyeMarshruty = sequelize.define(
         this.setDataValue("tags", JSON.stringify(value));
       },
     },
-    link_path: { type: DataTypes.STRING },
+    linkPath: { type: DataTypes.STRING },
     imageId: { type: DataTypes.INTEGER },
     template: { type: DataTypes.TEXT },
   },

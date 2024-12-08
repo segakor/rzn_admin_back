@@ -24,6 +24,9 @@ class ChtoPosmotretController {
         where: { id },
       });
 
+      if (!chtoPosmotret)
+        return res.status(404).json({ message: "not found chtoPosmotret" });
+
       return res.json(chtoPosmotret);
     } catch (err) {
       res.status(500).json({

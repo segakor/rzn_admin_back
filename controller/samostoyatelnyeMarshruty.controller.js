@@ -28,6 +28,11 @@ class SamostoyatelnyeMarshrutyController {
         where: { id },
       });
 
+      if (!samostoyatelnyeMarshruty)
+        return res
+          .status(404)
+          .json({ message: "not found samostoyatelnyeMarshruty" });
+
       return res.json(samostoyatelnyeMarshruty);
     } catch (err) {
       res.status(500).json({

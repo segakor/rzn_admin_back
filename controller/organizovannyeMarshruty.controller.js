@@ -37,7 +37,6 @@ class OrganizovannyeMarshrutyController {
     try {
       const {
         title,
-        subTitle,
         email,
         dates,
         template,
@@ -49,7 +48,6 @@ class OrganizovannyeMarshrutyController {
 
       if (
         !title ||
-        !subTitle ||
         !email ||
         !dates ||
         !template ||
@@ -65,7 +63,6 @@ class OrganizovannyeMarshrutyController {
 
       const organizovannyeMarshruty = await OrganizovannyeMarshruty.create({
         title,
-        subTitle,
         email,
         dates,
         template,
@@ -92,7 +89,6 @@ class OrganizovannyeMarshrutyController {
     try {
       const {
         title,
-        subTitle,
         email,
         dates,
         template,
@@ -105,7 +101,6 @@ class OrganizovannyeMarshrutyController {
 
       if (
         !title ||
-        !subTitle ||
         !email ||
         !dates ||
         !template ||
@@ -128,7 +123,6 @@ class OrganizovannyeMarshrutyController {
         await OrganizovannyeMarshruty.update(
           {
             title,
-            subTitle,
             email,
             dates,
             template,
