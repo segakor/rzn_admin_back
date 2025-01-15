@@ -25,6 +25,11 @@ class OrganizovannyeMarshrutyController {
         where: { id },
       });
 
+      if (!organizovannyeMarshruty)
+        return res
+          .status(404)
+          .json({ message: "not found organizovannyeMarshruty" });
+
       return res.json(organizovannyeMarshruty);
     } catch (err) {
       res.status(500).json({
