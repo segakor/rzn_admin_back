@@ -126,6 +126,20 @@ const Answer = sequelize.define(
   { underscored: true, freezeTableName: true, timestamps: false }
 );
 
+const Gid = sequelize.define(
+  "gid",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    fio: { type: DataTypes.STRING },
+    phone: { type: DataTypes.STRING },
+    title: { type: DataTypes.STRING },
+    bodyText: { type: DataTypes.TEXT },
+    isActive: { type: DataTypes.BOOLEAN },
+    imageId: { type: DataTypes.INTEGER },
+  },
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
+
 const StorageImage = sequelize.define(
   "storage_image",
   {
@@ -170,6 +184,11 @@ OrganizovannyeMarshruty.hasOne(StorageImage, {
   sourceKey: "imageId",
 });
 
+Gid.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
 //freezeTableName убирает s в название таблицы при инсерте
 
 module.exports = {
@@ -182,4 +201,5 @@ module.exports = {
   SamostoyatelnyeMarshruty,
   OrganizovannyeMarshruty,
   Answer,
+  Gid,
 };

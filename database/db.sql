@@ -15,3 +15,5 @@ create TABLE samostoyatelnye_marshruty (id SERIAL PRIMARY KEY, title VARCHAR(400
 create TABLE organizovannye_marshruty (id SERIAL PRIMARY KEY, title VARCHAR(400), image_id SERIAL, email VARCHAR(100), dates VARCHAR(400), include_price VARCHAR(200), price VARCHAR(200), days VARCHAR(200), template TEXT );
 
 create TABLE answers (id SERIAL PRIMARY KEY, title VARCHAR(400) , category VARCHAR(100), keywords VARCHAR(400), answers TEXT );
+
+create TABLE gid(id SERIAL PRIMARY KEY, fio VARCHAR(50), title VARCHAR(200), body_text TEXT, phone VARCHAR(100), image_id SERIAL, is_active BOOLEAN );

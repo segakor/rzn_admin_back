@@ -13,6 +13,7 @@ const chtoPosmotretRouter = require("./routes/chtoPosmotret.routes");
 const samostoyatelnyeMarshrutyRouter = require("./routes/samostoyatelnyeMarshruty.route");
 const answersRouter = require("./routes/answers.routes");
 const organizovannyeMarshrutyRouter = require("./routes/organizovannyeMarshruty.routes");
+const gidRouter = require("./routes/gid.routes");
 
 const { envMode, SSL_D } = require("./env_var");
 
@@ -39,6 +40,7 @@ app.use("/api-v2", chtoPosmotretRouter);
 app.use("/api-v2", samostoyatelnyeMarshrutyRouter);
 app.use("/api-v2", answersRouter);
 app.use("/api-v2", organizovannyeMarshrutyRouter);
+app.use("/api-v2", gidRouter);
 
 app.use("/api-v2", express.static(__dirname));
 
