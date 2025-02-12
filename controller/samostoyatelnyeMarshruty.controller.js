@@ -9,7 +9,7 @@ class SamostoyatelnyeMarshrutyController {
       const samostoyatelnyeMarshruty =
         await SamostoyatelnyeMarshruty.findAndCountAll({
           include: { model: StorageImage },
-          order: [["id", "ASC"]],
+          order: [["sequence", "DESC"]],
         });
 
       return res.json(samostoyatelnyeMarshruty);
@@ -43,8 +43,16 @@ class SamostoyatelnyeMarshrutyController {
 
   async create(req, res) {
     try {
-      const { title, subTitle, category, tags, template, linkPath, imageId } =
-        req.body;
+      const {
+        title,
+        subTitle,
+        category,
+        tags,
+        template,
+        linkPath,
+        imageId,
+        sequence,
+      } = req.body;
 
       if (!title || !subTitle || !category || !imageId) {
         return res
@@ -60,6 +68,7 @@ class SamostoyatelnyeMarshrutyController {
         template,
         imageId,
         linkPath,
+        sequence,
       });
 
       if (!samostoyatelnyeMarshruty)
@@ -86,6 +95,7 @@ class SamostoyatelnyeMarshrutyController {
         linkPath,
         imageId,
         id,
+        sequence,
       } = req.body;
 
       if (!title || !subTitle || !category || !imageId || !id) {
@@ -108,6 +118,7 @@ class SamostoyatelnyeMarshrutyController {
             template,
             linkPath,
             imageId,
+            sequence,
           },
           {
             where: {

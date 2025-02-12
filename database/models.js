@@ -101,6 +101,7 @@ const SamostoyatelnyeMarshruty = sequelize.define(
     linkPath: { type: DataTypes.STRING },
     imageId: { type: DataTypes.INTEGER },
     template: { type: DataTypes.TEXT },
+    sequence: { type: DataTypes.NUMBER },
   },
 
   { underscored: true, freezeTableName: true, timestamps: false }
@@ -135,6 +136,29 @@ const Gid = sequelize.define(
     title: { type: DataTypes.STRING },
     bodyText: { type: DataTypes.TEXT },
     isActive: { type: DataTypes.BOOLEAN },
+    imageId: { type: DataTypes.INTEGER },
+  },
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
+
+const Promturizm = sequelize.define(
+  "promturizm",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    subTitle: { type: DataTypes.STRING },
+    address: { type: DataTypes.STRING },
+    ageLimit: { type: DataTypes.STRING },
+    tags: {
+      type: DataTypes.TEXT,
+      get: function () {
+        return JSON.parse(this.getDataValue("tags"));
+      },
+      set: function (value) {
+        this.setDataValue("tags", JSON.stringify(value));
+      },
+    },
+    template: { type: DataTypes.TEXT },
     imageId: { type: DataTypes.INTEGER },
   },
   { underscored: true, freezeTableName: true, timestamps: false }
@@ -189,6 +213,11 @@ Gid.hasOne(StorageImage, {
   sourceKey: "imageId",
 });
 
+Promturizm.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
 //freezeTableName убирает s в название таблицы при инсерте
 
 module.exports = {
@@ -202,4 +231,5 @@ module.exports = {
   OrganizovannyeMarshruty,
   Answer,
   Gid,
+  Promturizm,
 };

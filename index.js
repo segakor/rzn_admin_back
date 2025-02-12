@@ -14,6 +14,21 @@ const samostoyatelnyeMarshrutyRouter = require("./routes/samostoyatelnyeMarshrut
 const answersRouter = require("./routes/answers.routes");
 const organizovannyeMarshrutyRouter = require("./routes/organizovannyeMarshruty.routes");
 const gidRouter = require("./routes/gid.routes");
+const promturizmRouter = require("./routes/promturizm.routes");
+
+const routes = [
+  authRouter,
+  newsArtRouter,
+  newsRegionRouter,
+  uploadRouter,
+  longReadRouter,
+  chtoPosmotretRouter,
+  samostoyatelnyeMarshrutyRouter,
+  answersRouter,
+  organizovannyeMarshrutyRouter,
+  gidRouter,
+  promturizmRouter,
+];
 
 const { envMode, SSL_D } = require("./env_var");
 
@@ -31,16 +46,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use("/api-v2", authRouter);
-app.use("/api-v2", newsArtRouter);
-app.use("/api-v2", newsRegionRouter);
-app.use("/api-v2", uploadRouter);
-app.use("/api-v2", longReadRouter);
-app.use("/api-v2", chtoPosmotretRouter);
-app.use("/api-v2", samostoyatelnyeMarshrutyRouter);
-app.use("/api-v2", answersRouter);
-app.use("/api-v2", organizovannyeMarshrutyRouter);
-app.use("/api-v2", gidRouter);
+routes.forEach((router) => {
+  app.use("/api-v2", router);
+});
 
 app.use("/api-v2", express.static(__dirname));
 
