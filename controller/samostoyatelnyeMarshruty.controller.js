@@ -9,7 +9,7 @@ class SamostoyatelnyeMarshrutyController {
       const samostoyatelnyeMarshruty =
         await SamostoyatelnyeMarshruty.findAndCountAll({
           include: { model: StorageImage },
-          order: [["sequence", "DESC"]],
+          order: [["sequence", "ASC"]],
         });
 
       return res.json(samostoyatelnyeMarshruty);
