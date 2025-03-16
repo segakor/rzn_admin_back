@@ -4,7 +4,7 @@ class LongReadController {
   async get(_req, res) {
     try {
       const longRead = await LongRead.findAndCountAll({
-        order: [["date", "DESC"]],
+        order: [["id", "ASC"]],
       });
 
       return res.json(longRead);
@@ -21,6 +21,9 @@ class LongReadController {
       const longRead = await LongRead.findOne({
         where: { title: id },
       });
+
+      if (!longRead)
+        return res.status(404).json({ message: "not found longRead" });
 
       return res.json(longRead);
     } catch (err) {
