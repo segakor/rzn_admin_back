@@ -164,21 +164,35 @@ const Promturizm = sequelize.define(
   { underscored: true, freezeTableName: true, timestamps: false }
 );
 
-const StorageImage = sequelize.define(
-  "storage_image",
-  {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    imagePath: { type: DataTypes.STRING },
-  },
-  { underscored: true, freezeTableName: true }
-);
-
 const LongRead = sequelize.define(
   "long_read",
   {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING },
     bodyText: { type: DataTypes.TEXT },
+  },
+  { underscored: true, freezeTableName: true }
+);
+
+const Banner = sequelize.define(
+  "banner",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    subTitle: { type: DataTypes.STRING },
+    linkPath: { type: DataTypes.STRING },
+    imageId: { type: DataTypes.INTEGER },
+    sequence: { type: DataTypes.NUMBER },
+    isActive: { type: DataTypes.BOOLEAN },
+  },
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
+
+const StorageImage = sequelize.define(
+  "storage_image",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    imagePath: { type: DataTypes.STRING },
   },
   { underscored: true, freezeTableName: true }
 );
@@ -218,6 +232,11 @@ Promturizm.hasOne(StorageImage, {
   sourceKey: "imageId",
 });
 
+Banner.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
 //freezeTableName убирает s в название таблицы при инсерте
 
 module.exports = {
@@ -232,4 +251,5 @@ module.exports = {
   Answer,
   Gid,
   Promturizm,
+  Banner,
 };

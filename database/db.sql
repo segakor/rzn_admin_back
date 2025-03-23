@@ -19,3 +19,5 @@ create TABLE answers (id SERIAL PRIMARY KEY, title VARCHAR(400) , category VARCH
 create TABLE gid(id SERIAL PRIMARY KEY, fio VARCHAR(50), title VARCHAR(200), body_text TEXT, phone VARCHAR(100), image_id SERIAL, is_active BOOLEAN );
 
 create TABLE promturizm (id SERIAL PRIMARY KEY, title VARCHAR(400), sub_title VARCHAR(700), address VARCHAR(100), age_limit VARCHAR(10), tags VARCHAR(100), image_id SERIAL, template TEXT );
+
+create TABLE banner (id SERIAL PRIMARY KEY, title VARCHAR(400), sub_title VARCHAR(700), is_active BOOLEAN, sequence INTEGER, link_path VARCHAR(400),image_id SERIAL )
