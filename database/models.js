@@ -188,6 +188,19 @@ const Banner = sequelize.define(
   { underscored: true, freezeTableName: true, timestamps: false }
 );
 
+const Nasledie = sequelize.define(
+  "nasledie",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    subTitle: { type: DataTypes.STRING },
+    category: { type: DataTypes.STRING },
+    imageId: { type: DataTypes.INTEGER },
+    template: { type: DataTypes.TEXT },
+  },
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
+
 const StorageImage = sequelize.define(
   "storage_image",
   {
@@ -237,6 +250,11 @@ Banner.hasOne(StorageImage, {
   sourceKey: "imageId",
 });
 
+Nasledie.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
 //freezeTableName убирает s в название таблицы при инсерте
 
 module.exports = {
@@ -252,4 +270,5 @@ module.exports = {
   Gid,
   Promturizm,
   Banner,
+  Nasledie,
 };

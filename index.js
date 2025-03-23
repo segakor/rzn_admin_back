@@ -19,6 +19,7 @@ const organizovannyeMarshrutyRouter = require("./routes/organizovannyeMarshruty.
 const gidRouter = require("./routes/gid.routes");
 const promturizmRouter = require("./routes/promturizm.routes");
 const bannerRouter = require("./routes/banner.routes");
+const nasledieRouter = require("./routes/nasledie.routes");
 
 const routes = [
   authRouter,
@@ -33,6 +34,7 @@ const routes = [
   gidRouter,
   promturizmRouter,
   bannerRouter,
+  nasledieRouter,
 ];
 
 const { envMode, SSL_D } = require("./env_var");
