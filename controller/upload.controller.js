@@ -36,7 +36,6 @@ class UploadController {
         imagePath,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({
         message: err,
       });
@@ -68,7 +67,6 @@ class UploadController {
         url: `${baseUrl}/${file.path}`,
       });
     } catch (err) {
-      console.log(err);
       res.status(500).json({
         uploaded: 0,
         url: `${baseUrl}/${file.path}`,

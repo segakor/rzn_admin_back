@@ -20,6 +20,8 @@ const gidRouter = require("./routes/gid.routes");
 const promturizmRouter = require("./routes/promturizm.routes");
 const bannerRouter = require("./routes/banner.routes");
 const nasledieRouter = require("./routes/nasledie.routes");
+const uploadFileRouter = require("./routes/uploadFile.routes");
+const bibliotekaRouter = require("./routes/biblioteka.routes");
 
 const routes = [
   authRouter,
@@ -35,6 +37,8 @@ const routes = [
   promturizmRouter,
   bannerRouter,
   nasledieRouter,
+  uploadFileRouter,
+  bibliotekaRouter,
 ];
 
 const { envMode, SSL_D } = require("./env_var");

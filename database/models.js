@@ -210,6 +210,59 @@ const StorageImage = sequelize.define(
   { underscored: true, freezeTableName: true }
 );
 
+const StorageFile = sequelize.define(
+  "storage_file",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    filePath: { type: DataTypes.STRING },
+  },
+  { underscored: true, freezeTableName: true }
+);
+
+const BibliotekaPochitat = sequelize.define(
+  "biblioteka_pochitat",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    subTitle: { type: DataTypes.STRING },
+    linkPathOzon: { type: DataTypes.STRING },
+    linkPathLitres: { type: DataTypes.STRING },
+    linkPath: { type: DataTypes.STRING },
+    imageId: { type: DataTypes.INTEGER },
+  },
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
+
+const BibliotekaPoslushat = sequelize.define(
+  "biblioteka_poslushat",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    subTitle: { type: DataTypes.STRING },
+    prolongation: { type: DataTypes.STRING },
+    date: { type: DataTypes.STRING },
+    linkPathYa: { type: DataTypes.STRING },
+    linkPathIzi: { type: DataTypes.STRING },
+    imageId: { type: DataTypes.INTEGER },
+  },
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
+
+const BibliotekaPosmotret = sequelize.define(
+  "biblioteka_posmotret",
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    title: { type: DataTypes.STRING },
+    subTitle: { type: DataTypes.STRING },
+    prolongation: { type: DataTypes.STRING },
+    date: { type: DataTypes.STRING },
+    linkName: { type: DataTypes.STRING },
+    linkPath: { type: DataTypes.STRING },
+    imageId: { type: DataTypes.INTEGER },
+  },
+  { underscored: true, freezeTableName: true, timestamps: false }
+);
+
 NewsArt.hasOne(StorageImage, {
   foreignKey: "id",
   sourceKey: "imageId",
@@ -255,6 +308,21 @@ Nasledie.hasOne(StorageImage, {
   sourceKey: "imageId",
 });
 
+BibliotekaPochitat.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
+BibliotekaPoslushat.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
+BibliotekaPosmotret.hasOne(StorageImage, {
+  foreignKey: "id",
+  sourceKey: "imageId",
+});
+
 //freezeTableName убирает s в название таблицы при инсерте
 
 module.exports = {
@@ -271,4 +339,8 @@ module.exports = {
   Promturizm,
   Banner,
   Nasledie,
+  StorageFile,
+  BibliotekaPochitat,
+  BibliotekaPoslushat,
+  BibliotekaPosmotret,
 };

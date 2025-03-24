@@ -1,14 +1,14 @@
-const { Promturizm, StorageImage } = require("../database/models");
+const { BibliotekaPosmotret, StorageImage } = require("../database/models");
 
-class PromturizmController {
+class BibliotekaPosmotretController {
   async get(_req, res) {
     try {
-      const items = await Promturizm.findAndCountAll({
+      const posmotretItems = await BibliotekaPosmotret.findAndCountAll({
         include: { model: StorageImage },
         order: [["id", "ASC"]],
       });
 
-      return res.json(items);
+      return res.json(posmotretItems);
     } catch (err) {
       res.status(500).json({
         message: err.message,
@@ -19,14 +19,15 @@ class PromturizmController {
   async getById(req, res) {
     try {
       const id = req.params.id;
-      const item = await Promturizm.findOne({
+      const posmotretItem = await BibliotekaPosmotret.findOne({
         include: { model: StorageImage },
         where: { id },
       });
 
-      if (!item) return res.status(404).json({ message: "not found item" });
+      if (!posmotretItem)
+        return res.status(404).json({ message: "not found posmotretItem" });
 
-      return res.json(item);
+      return res.json(posmotretItem);
     } catch (err) {
       res.status(500).json({
         message: err.message,
@@ -36,34 +37,34 @@ class PromturizmController {
 
   async create(req, res) {
     try {
-      const { title, subTitle, address, ageLimit, tags, template, imageId } =
-        req.body;
+      const {
+        title,
+        subTitle,
+        prolongation,
+        date,
+        linkName,
+        linkPath,
+        imageId,
+      } = req.body;
 
-      if (
-        !address ||
-        !subTitle ||
-        !title ||
-        !ageLimit ||
-        !tags ||
-        !template ||
-        !imageId
-      ) {
+      if (!title || !subTitle || !imageId || !date) {
         return res
           .status(404)
           .json({ message: "Не переданы все обязательные параметры" });
       }
 
-      const itemObj = await Promturizm.create({
+      const posmotretItem = await BibliotekaPosmotret.create({
         title,
         subTitle,
-        address,
-        ageLimit,
-        tags,
-        template,
+        prolongation,
+        date,
+        linkName,
+        linkPath,
         imageId,
       });
 
-      if (!itemObj) return res.status(404).json({ message: "itemObj error" });
+      if (!posmotretItem)
+        return res.status(404).json({ message: "posmotretItem error" });
 
       return res.json({ message: "success" });
     } catch (err) {
@@ -78,40 +79,34 @@ class PromturizmController {
       const {
         title,
         subTitle,
-        address,
-        ageLimit,
-        tags,
-        template,
+        prolongation,
+        date,
+        linkName,
+        linkPath,
         imageId,
         id,
       } = req.body;
 
-      if (
-        !address ||
-        !subTitle ||
-        !title ||
-        !ageLimit ||
-        !tags ||
-        !template ||
-        !imageId
-      ) {
+      if (!title || !subTitle || !imageId || !id) {
         return res
           .status(404)
           .json({ message: "Не переданы все обязательные параметры" });
       }
 
-      const itemObj = await Promturizm.findOne({ where: { id } });
+      const posmotretItem = await BibliotekaPosmotret.findOne({
+        where: { id },
+      });
 
-      if (itemObj) {
-        await Promturizm.update(
+      if (posmotretItem) {
+        await BibliotekaPosmotret.update(
           {
             title,
             subTitle,
-            ageLimit,
+            prolongation,
+            date,
+            linkName,
+            linkPath,
             imageId,
-            template,
-            tags,
-            address,
           },
           {
             where: {
@@ -122,7 +117,7 @@ class PromturizmController {
         return res.json({ message: "success update" });
       }
 
-      return res.status(404).json({ message: "itemObj not found" });
+      return res.status(404).json({ message: "posmotretItem not found" });
     } catch (err) {
       res.status(500).json({
         message: err,
@@ -133,17 +128,19 @@ class PromturizmController {
   async delete(req, res) {
     try {
       const id = req.params.id;
-      const itemObj = await Promturizm.findOne({ where: { id } });
+      const posmotretItem = await BibliotekaPosmotret.findOne({
+        where: { id },
+      });
 
-      if (itemObj) {
-        await Promturizm.destroy({
+      if (posmotretItem) {
+        await BibliotekaPosmotret.destroy({
           where: {
             id,
           },
         });
         return res.json({ message: "success delete" });
       }
-      return res.status(404).json({ message: "itemObj not found" });
+      return res.status(404).json({ message: "posmotretItem not found" });
     } catch (err) {
       res.status(500).json({
         message: err.message,
@@ -152,4 +149,4 @@ class PromturizmController {
   }
 }
 
-module.exports = new PromturizmController();
+module.exports = new BibliotekaPosmotretController();
